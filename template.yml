@@ -22,6 +22,7 @@ Resources:
     Properties:
       Handler: index.handler
       Runtime: nodejs18.x
+      Name: dm-pa-apigateway
       CodeUri: ./
       MemorySize: 128
       AutoPublishAlias: live
