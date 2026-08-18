@@ -1,7 +1,7 @@
 exports.handler = async (event) => {
   return {
     statusCode: 200,
-    body: "hello ayush 4"
+    body: "hello from dev"
   };
 };
 // 

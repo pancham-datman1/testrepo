@@ -1,7 +1,22 @@
 Transform: AWS::Serverless-2016-10-31
 Description: Trigger Node.js Lambda function from API
+Parameters:
+  EnvStage:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+      - staging
 
 Resources:
+# api gateway
+
+  MyApiGateway:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: !Ref EnvStage
+# lambda 
   MyNodeLambda:
     Type: AWS::Serverless::Function
     Properties:
@@ -13,5 +28,7 @@ Resources:
         ApiEvent:
           Type: Api
           Properties:
+          # linking lambda to api gateway
+            RestApiId: !Ref MyApiGateway 
             Path: /test
             Method: get
