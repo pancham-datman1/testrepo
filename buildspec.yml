@@ -1,0 +1,10 @@
+version: 0.2
+phases:
+  build:
+    commands:
+      - npm install
+      - aws cloudformation package --template-file template.yml --output-template-file template-out.yml --s3-bucket dm-cp-s3
+artifacts:
+  files:
+    - template.yml
+    - template-out.yml
