@@ -3,7 +3,7 @@ Description: Trigger Node.js Lambda function from API
 Parameters:
   EnvStage:
     Type: String
-    Default: prod
+    Default: staging
     AllowedValues:
       - dev
       - prod
