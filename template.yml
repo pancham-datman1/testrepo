@@ -24,6 +24,7 @@ Resources:
       Runtime: nodejs18.x
       CodeUri: ./
       MemorySize: 128
+      AutoPublishAlias: live
       Events:
         ApiEvent:
           Type: Api
