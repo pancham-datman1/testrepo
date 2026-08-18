@@ -25,6 +25,7 @@ Resources:
       CodeUri: ./
       MemorySize: 128
       AutoPublishAlias: live
+      AutoPublishAliasAllProperties: true
       Events:
         ApiEvent:
           Type: Api
