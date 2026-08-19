@@ -1,6 +1,7 @@
 exports.handler = async (event) => {
+  const mySecret = process.env.MY_SECRET;
   return {
     statusCode: 200,
-    body: "hello bhiya"
+    body: JSON.stringify({ message: "hiiiiii !", secret: mySecret }),
   };
 };

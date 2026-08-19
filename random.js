@@ -1,5 +1,5 @@
 exports.handler = async (event) => {
-  const { v4: uuidv4 } = await import('uuid'); // ✅ Works!
+  const { v4: uuidv4 } = await import('uuid');
 
   return {
     statusCode: 200,

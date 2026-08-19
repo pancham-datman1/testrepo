@@ -24,6 +24,9 @@ Resources:
       Runtime: nodejs20.x
       Handler: hello.handler
       CodeUri: .
+      Environment:
+        Variables:
+          MY_SECRET: '{{resolve:ssm:mySecret1}}'
       Events:
         HelloAPI:
           Type: Api
