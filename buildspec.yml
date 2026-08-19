@@ -2,9 +2,12 @@ version: 0.2
 phases:
   build:
     commands:
+      - mkdir -p package-layer/nodejs
+      - cp package.json package-layer/nodejs/
+      - cd package-layer/nodejs
       - npm install
+      - cd ../..
       - aws cloudformation package --template-file template.yml --output-template-file template-out.yml --s3-bucket dm-cp-s3
 artifacts:
   files:
-    - template.yml
     - template-out.yml

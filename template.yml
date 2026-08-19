@@ -8,19 +8,41 @@ Resources:
     Properties:
       Name: dm-pa-apigateway
       StageName: Prod
+  
 
-# lambda 
-  MyNodeLambda:
+  UUIDLayer:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      LayerName: dm-pa-lambda-layer
+      ContentUri: package-layer/
+      CompatibleRuntimes:
+        - nodejs20.x
+
+  HelloFunction:
     Type: AWS::Serverless::Function
     Properties:
-      Handler: index.handler
-      Runtime: nodejs18.x
-      CodeUri: ./
-      MemorySize: 128
+      Runtime: nodejs20.x
+      Handler: hello.handler
+      CodeUri: .
       Events:
-        ApiEvent:
+        HelloAPI:
           Type: Api
           Properties:
             RestApiId: !Ref MyApiGateway 
-            Path: /test
-            Method: get
+            Path: /hello
+            Method: GET
+  RandomFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs20.x
+      Handler: random.handler
+      CodeUri: .
+      Layers:
+        - !Ref UUIDLayer
+      Events:
+        RandomAPI:
+          Type: Api
+          Properties:
+            RestApiId: !Ref MyApiGateway 
+            Path: /random
+            Method: GET
