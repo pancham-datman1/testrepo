@@ -3,6 +3,6 @@ exports.handler = async (event) => {
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ id: uuidv4() }),
+    body: JSON.stringify({ id: uuidv4()+" test of control" }),
   };
 };

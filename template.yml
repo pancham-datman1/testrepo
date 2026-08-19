@@ -1,6 +1,19 @@
 Transform: AWS::Serverless-2016-10-31
 Description: Trigger Node.js Lambda function from API
 
+Parameters:
+  DeployHelloService:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /my-app/flags/hello-enabled
+
+  DeployRandomService:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: /my-app/flags/random-enabled
+
+Conditions:
+  ShouldDeployHello: !Equals [!Ref DeployHelloService, "true"]
+  ShouldDeployRandom: !Equals [!Ref DeployRandomService, "true"]
+
 Resources:
 # api gateway
   MyApiGateway:
@@ -10,7 +23,7 @@ Resources:
       StageName: Prod
   
 
-  UUIDLayer:
+  LambdaLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
       LayerName: dm-pa-lambda-layer
@@ -20,6 +33,7 @@ Resources:
 
   HelloFunction:
     Type: AWS::Serverless::Function
+    Condition: ShouldDeployHello
     Properties:
       Runtime: nodejs20.x
       Handler: hello.handler
@@ -36,6 +50,7 @@ Resources:
             Method: GET
   RandomFunction:
     Type: AWS::Serverless::Function
+    Condition: ShouldDeployRandom
     Properties:
       Runtime: nodejs20.x
       Handler: random.handler
