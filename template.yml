@@ -56,7 +56,7 @@ Resources:
       Handler: random.handler
       CodeUri: .
       Layers:
-        - !Ref UUIDLayer
+        - !Ref LambdaLayer
       Events:
         RandomAPI:
           Type: Api
