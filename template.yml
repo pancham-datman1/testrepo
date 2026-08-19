@@ -1,19 +1,25 @@
 Transform: AWS::Serverless-2016-10-31
 Description: Trigger Node.js Lambda function from API
 
+Parameters:
+  Alias:
+    Type: String
+    Default: d
+    Description: Environment alias (e.g. d, e). Resources are suffixed with this so each alias can be deployed as its own independent stack.
+
 Resources:
 # api gateway
   MyApiGateway:
     Type: AWS::Serverless::Api
     Properties:
-      Name: dm-pa-apigateway
+      Name: !Sub dm-pa-apigateway-${Alias}
       StageName: Prod
-  
+
 
   LambdaLayer:
     Type: AWS::Serverless::LayerVersion
     Properties:
-      LayerName: dm-pa-lambda-layer
+      LayerName: !Sub dm-pa-lambda-layer-${Alias}
       ContentUri: package-layer/
       CompatibleRuntimes:
         - nodejs20.x
@@ -21,6 +27,7 @@ Resources:
   HelloFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: !Sub dm-pa-hello-${Alias}
       Runtime: nodejs20.x
       Handler: hello.handler
       CodeUri: .
@@ -31,12 +38,13 @@ Resources:
         HelloAPI:
           Type: Api
           Properties:
-            RestApiId: !Ref MyApiGateway 
+            RestApiId: !Ref MyApiGateway
             Path: /hello
             Method: GET
   RandomFunction:
     Type: AWS::Serverless::Function
     Properties:
+      FunctionName: !Sub dm-pa-random-${Alias}
       Runtime: nodejs20.x
       Handler: random.handler
       CodeUri: .
@@ -46,6 +54,6 @@ Resources:
         RandomAPI:
           Type: Api
           Properties:
-            RestApiId: !Ref MyApiGateway 
+            RestApiId: !Ref MyApiGateway
             Path: /random
             Method: GET
