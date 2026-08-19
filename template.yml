@@ -3,11 +3,11 @@ Description: Trigger Node.js Lambda function from API
 
 Resources:
 # api gateway
-
   MyApiGateway:
     Type: AWS::Serverless::Api
     Properties:
       Name: dm-pa-apigateway
+      StageName: Prod
 
 # lambda 
   MyNodeLambda:
