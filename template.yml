@@ -17,13 +17,10 @@ Resources:
       Runtime: nodejs18.x
       CodeUri: ./
       MemorySize: 128
-      AutoPublishAlias: live
-      AutoPublishAliasAllProperties: true
       Events:
         ApiEvent:
           Type: Api
           Properties:
-          # linking lambda to api gateway
             RestApiId: !Ref MyApiGateway 
             Path: /test
             Method: get
