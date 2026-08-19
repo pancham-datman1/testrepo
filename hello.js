@@ -5,6 +5,6 @@ exports.handler = async (event) => {
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
-    body: JSON.stringify({ message: "NOOOO!", secret: mySecret }),
+    body: JSON.stringify({ message: "its eeee part!", secret: mySecret }),
   };
 };
